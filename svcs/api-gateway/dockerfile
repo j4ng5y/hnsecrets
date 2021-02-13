@@ -32,7 +32,7 @@ COPY . .
 # "cmd/gateway/gateway.go" is simply the path to the main app entrypoint file
 #
 # All of this build the executable so that we can copy/use it in the scratch container
-RUN CGO_ENABLED=0 go build -a -o go/bin/gateway -ldflags '-extldflags "-static"' cmd/gateway/gateway.go
+RUN CGO_ENABLED=0 go build -a -o /go/bin/gateway -ldflags '-extldflags "-static"' cmd/gateway/gateway.go
 
 # scratch is a "distroless" container, meaning it's essentially just a linux kernel, therefore, very, very small
 FROM scratch
