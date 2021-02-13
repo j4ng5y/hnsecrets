@@ -1,5 +1,9 @@
 all: test build deploy
 
+.PHONY: api
+api:
+	@echo "This command will generate the API code from the files within ./api/ -- TODO"
+
 .PHONY: test
 test: testApiGateway testSecrets
 
