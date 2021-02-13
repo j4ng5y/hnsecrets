@@ -1,4 +1,4 @@
-all: test build publish
+all: test build deploy
 
 .PHONY: test
 test: testApiGateway testSecrets
