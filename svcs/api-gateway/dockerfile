@@ -9,6 +9,9 @@ RUN apt-get install ca-certificates
 # Create a user that we will run the service with
 RUN useradd -MU gateway
 
+# Set the working directory
+WORKDIR /go/src/github.com/j4ng5y/hnsecrets
+
 # Copy the files over
 COPY . .
 
@@ -32,12 +35,12 @@ COPY . .
 RUN CGO_ENABLED=0 go build -a -o go/bin/gateway -ldflags '-extldflags "-static"' cmd/gateway/gateway.go
 
 # scratch is a "distroless" container, meaning it's essentially just a linux kernel, therefore, very, very small
-FROM scratch AS main
+FROM scratch
 
 # Copy all of the files we need, including our binary
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs
 COPY --from=builder /etc/passwd /etc/passwd
-COPY --from=build /etc/group /etc/group
+COPY --from=builder /etc/group /etc/group
 COPY --from=builder --chown=gateway:gateway /go/bin/gateway /gateway
 
 # Set the user to run the app

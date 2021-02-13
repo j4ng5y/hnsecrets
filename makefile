@@ -23,13 +23,11 @@ build: buildApiGateway buildSecrets
 
 .PHONY: buildApiGateway
 buildApiGateway:
-	@cd svcs/api-gateway
-	@docker build --no-cache --name j4ng5y/hnsecrets:gateway-latest .
+	@cd svcs/api-gateway && docker build --no-cache -t j4ng5y/hnsecrets:gateway-latest .
 
 .PHONY: buildSecrets
 buildSecrets:
-	@cd svcs/secrets
-	@docker build --no-cache --name j4ng5y/hnsecrets:secrets-latest .
+	@cd svcs/secrets && docker build --no-cache -t j4ng5y/hnsecrets:secrets-latest .
 
 .PHONY: deploy
 deploy: deployApiGateway deploySecrets
